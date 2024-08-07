@@ -7,4 +7,5 @@ export const AIOutput = pgTable("aiOutput", {
   templateSlug: varchar("templateSlug").notNull(),
   createdBy: varchar("createdBy").notNull(),
   createdAt: varchar("createdAt"),
+  icon: varchar("icon").notNull(),
 });

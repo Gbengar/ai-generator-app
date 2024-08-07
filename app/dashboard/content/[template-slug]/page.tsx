@@ -30,19 +30,27 @@ const CreateNewContent = (props: PROPS) => {
   const GenerateAIContent = async (formData: any) => {
     setLoading(true);
     const SelectedPrompt = selectedTemplate?.aiPrompt;
-    const FinalAIPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
+    const SelectedIcon = selectedTemplate?.icon || "";
+    const FinalAIPrompt =
+      JSON.stringify(formData) + ", " + SelectedPrompt + SelectedIcon;
     const result = await chatSession.sendMessage(FinalAIPrompt);
     console.log(result.response.text());
     setAiOutput(result?.response.text());
     await SaveInDb(
       JSON.stringify(formData),
       selectedTemplate?.slug,
-      result?.response.text()
+      result?.response.text(),
+      SelectedIcon
     );
     setLoading(false);
   };
 
-  const SaveInDb = async (formData: any, slug: any, aiResp: string) => {
+  const SaveInDb = async (
+    formData: any,
+    slug: any,
+    aiResp: string,
+    icon: string
+  ) => {
     try {
       const result = await db.insert(AIOutput).values({
         formData: formData,
@@ -50,6 +58,7 @@ const CreateNewContent = (props: PROPS) => {
         aiResponse: aiResp,
         createdBy: user?.primaryEmailAddress?.emailAddress || "",
         createdAt: moment().format("DD/MM/YYYY"),
+        icon: icon,
       });
       console.log("Inserted successfully:", result);
     } catch (error) {

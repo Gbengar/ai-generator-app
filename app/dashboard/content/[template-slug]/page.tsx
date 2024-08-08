@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import FormSection from "../_components/FormSection";
 import OutputSection from "../_components/OutputSection";
 import { TEMPLATE } from "../../_components/TemplateListSection";
@@ -13,6 +13,9 @@ import { db } from "@/utils/db";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { eq } from "drizzle-orm";
+import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
+import { AlertDialog } from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 interface PROPS {
   params: {
@@ -27,7 +30,14 @@ const CreateNewContent = (props: PROPS) => {
   const [aiOutput, setAiOutput] = useState<string>("");
 
   const { user } = useUser();
+  const router = useRouter();
+  const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   const GenerateAIContent = async (formData: any) => {
+    if (totalUsage >= 10000) {
+      router.push("/dashboard/billing");
+
+      return <AlertDialog>Please upgrade</AlertDialog>;
+    }
     setLoading(true);
     const SelectedPrompt = selectedTemplate?.aiPrompt;
     const SelectedIcon = selectedTemplate?.icon || "";

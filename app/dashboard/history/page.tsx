@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "@/utils/db";
 import { AIOutput } from "@/utils/schema";
 import { desc, eq } from "drizzle-orm";
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
+import CopyButton from "../_components/CopyButton";
 
 export interface HISTORY {
   id: Number;
@@ -92,14 +93,9 @@ const History = async () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Button
-                          // onClick={() =>
-                          //   navigator.clipboard.writeText(item.aiResponse)
-                          // }
-                          className=" bg-gray-300 text-blue-600 hover:text-blue-800 text-xs "
-                        >
+                        <CopyButton text={item.aiResponse || ""}>
                           Copy
-                        </Button>
+                        </CopyButton>
                       </td>
                     </tr>
                   ))}

@@ -1,6 +1,22 @@
 "use client";
+import { currentUser } from "@clerk/nextjs/server";
 import { useRouter } from "next/navigation";
 import React from "react";
+import PaymentLink from "./_components/PaymentLink";
+
+interface PricingProps {
+  href: string;
+  paymentLink?: string;
+  buttonText: string;
+}
+
+const pricingList: PricingProps[] = [
+  {
+    href: "/api/auth/login",
+    paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK,
+    buttonText: "Get Started",
+  },
+];
 
 const Billing = () => {
   const router = useRouter();
@@ -167,12 +183,11 @@ const Billing = () => {
               1 Year of History
             </li>
           </ul>
-          <button
-            onClick={handleGetStarted}
-            className="mt-6 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
-          >
-            Get Started
-          </button>
+          <PaymentLink
+            href={pricing.href}
+            text={pricing.buttonText}
+            paymentLink={pricing.paymentLink}
+          />
         </div>
       </div>
     </div>

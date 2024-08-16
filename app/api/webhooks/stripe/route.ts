@@ -36,12 +36,10 @@ export async function POST(req: Request) {
             .from(User)
             .where(eq(User.email, customerDetails.email));
           if (!user) throw new Error("User not found");
-          if (!user.customerId) {
-            await db
-              .update(User)
-              .set({ customerId })
-              .where(eq(User.id, user.id));
-          }
+
+          // Update or set the customerId for the user
+          await db.update(User).set({ customerId }).where(eq(User.id, user.id));
+
           const lineItems = session.line_items?.data || [];
 
           for (const item of lineItems) {
@@ -56,17 +54,18 @@ export async function POST(req: Request) {
                 throw new Error("Invalid PriceId");
               }
 
-              // Create or update the subscription
+              // Create or update the subscription using customerId as the id
               await db
                 .insert(Subscription)
                 .values({
-                  id: user.id,
+                  id: customerId,
+                  userId: user.id,
                   startDate: new Date(),
                   endDate: endDate,
                   active: true,
                 })
                 .onConflictDoUpdate({
-                  target: User.customerId,
+                  target: Subscription.id,
                   set: {
                     startDate: new Date(),
                     endDate: endDate,

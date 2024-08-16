@@ -5,6 +5,7 @@ import {
   text,
   timestamp,
   varchar,
+  integer,
 } from "drizzle-orm/pg-core";
 
 export const AIOutput = pgTable("aiOutput", {
@@ -30,7 +31,10 @@ export const User = pgTable("user", {
 });
 
 export const Subscription = pgTable("subscription", {
-  id: serial("id").primaryKey(),
+  id: varchar("id").primaryKey(),
+  userId: integer("userId")
+    .references(() => User.id)
+    .notNull(),
   active: boolean("active"),
   startDate: timestamp("startDate"),
   endDate: timestamp("endDate"),

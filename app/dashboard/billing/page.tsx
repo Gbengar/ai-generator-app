@@ -1,8 +1,19 @@
 "use client";
-import { currentUser } from "@clerk/nextjs/server";
 import { useRouter } from "next/navigation";
-import React from "react";
-import PaymentLink from "./_components/PaymentLink";
+import React, { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+
+interface User {
+  id: number;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  imageUrl?: string;
+  clerkUserId: string;
+  createdAt: string;
+  updatedAt: string;
+  customerId?: string;
+}
 
 interface PricingProps {
   href: string;
@@ -13,7 +24,7 @@ interface PricingProps {
 const pricingList: PricingProps[] = [
   {
     href: "/api/auth/login",
-    paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK,
+    paymentLink: process.env.STRIPE_MONTHLY_PLAN_LINK,
     buttonText: "Get Started",
   },
 ];
@@ -21,8 +32,19 @@ const pricingList: PricingProps[] = [
 const Billing = () => {
   const router = useRouter();
 
+  const { user } = useUser(); // This provides the current user on the client-side
+
+  console.log(user);
+
   const handleGetStarted = () => {
-    router.push(`/dashboard/billing/payment`);
+    const pricing = pricingList[0];
+    if (user && pricing.paymentLink) {
+      const stripePaymentLink = `${pricing.paymentLink}?prefilled_email=${user.primaryEmailAddress?.emailAddress}&success_url=${window.location.origin}${pricing.href}`;
+      window.location.href = stripePaymentLink;
+    } else {
+      // Handle case when user is not logged in or paymentLink is not available
+      router.push("/api/auth/login");
+    }
   };
 
   return (
@@ -183,11 +205,12 @@ const Billing = () => {
               1 Year of History
             </li>
           </ul>
-          <PaymentLink
-            href={pricing.href}
-            text={pricing.buttonText}
-            paymentLink={pricing.paymentLink}
-          />
+          <button
+            onClick={handleGetStarted}
+            className="mt-6 w-full bg-blue-600 text-white py-2 rounded-md"
+          >
+            Get Started
+          </button>
         </div>
       </div>
     </div>

@@ -59,7 +59,7 @@ export async function POST(req: Request) {
                 .insert(Subscription)
                 .values({
                   id: customerId,
-                  userId: user.id,
+                  userId: user.clerkUserId,
                   startDate: new Date(),
                   endDate: endDate,
                   active: true,
@@ -77,7 +77,6 @@ export async function POST(req: Request) {
             }
           }
         }
-        break;
 
       default:
         console.log(`Unhandled event type ${event.type}`);

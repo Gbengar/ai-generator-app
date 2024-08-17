@@ -32,8 +32,8 @@ export const User = pgTable("user", {
 
 export const Subscription = pgTable("subscription", {
   id: varchar("id").primaryKey(),
-  userId: integer("userId")
-    .references(() => User.id)
+  userId: varchar("userId") // Updated to varchar
+    .references(() => User.clerkUserId) // Updated reference
     .notNull(),
   active: boolean("active"),
   startDate: timestamp("startDate"),

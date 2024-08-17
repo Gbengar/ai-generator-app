@@ -16,6 +16,8 @@ import { eq } from "drizzle-orm";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext";
+import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 
 interface PROPS {
   params: {
@@ -32,8 +34,14 @@ const CreateNewContent = (props: PROPS) => {
   const { user } = useUser();
   const router = useRouter();
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+  const { userSubscription, setUserSubscription } = useContext(
+    UserSubscriptionContext
+  );
+  const { UpdateCreditUsage, setUpdateCreditUsage } = useContext(
+    UpdateCreditUsageContext
+  );
   const GenerateAIContent = async (formData: any) => {
-    if (totalUsage >= 10000) {
+    if (totalUsage >= 10000 && !userSubscription) {
       router.push("/dashboard/billing");
 
       return <AlertDialog>Please upgrade</AlertDialog>;
@@ -53,6 +61,7 @@ const CreateNewContent = (props: PROPS) => {
       SelectedIcon
     );
     setLoading(false);
+    setUpdateCreditUsage(Date.now());
   };
 
   const SaveInDb = async (

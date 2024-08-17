@@ -1,31 +1,74 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { db } from "@/utils/db";
-import { AIOutput } from "@/utils/schema";
+import { AIOutput, Subscription } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import React, { useContext, useEffect, useState } from "react";
 import { HISTORY } from "../history/page";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
+import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext";
+import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 
 const UsageTrack = () => {
   const { user } = useUser();
 
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
 
+  const { userSubscription, setUserSubscription } = useContext(
+    UserSubscriptionContext
+  );
+
+  const { UpdateCreditUsage, setUpdateCreditUsage } = useContext(
+    UpdateCreditUsageContext
+  );
+
+  const [maxWords, setMaxWords] = useState(10000);
   useEffect(() => {
-    user && GetData();
+    if (user) {
+      GetData();
+      isUserSubscribed();
+    }
   }, [user]);
 
-  const GetData = async () => {
-    {
-      /* @ts-ignore */
+  useEffect(() => {
+    if (user) {
+      GetData();
     }
+  }, [UpdateCreditUsage && user]);
+
+  const GetData = async () => {
+    if (!user?.primaryEmailAddress?.emailAddress) return;
+
     const result: HISTORY[] = await db
       .select()
       .from(AIOutput)
-      .where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress));
+      .where(eq(AIOutput.createdBy, user.primaryEmailAddress.emailAddress));
     GetTotalUsage(result);
+  };
+
+  const isUserSubscribed = async () => {
+    if (!user) return;
+
+    const subscriptionResult = await db
+      .select()
+      .from(Subscription)
+      .where(eq(Subscription.userId, user.id));
+
+    if (subscriptionResult.length > 0) {
+      const userSubscription = subscriptionResult[0];
+
+      if (userSubscription.active === true) {
+        setUserSubscription(true);
+        setMaxWords(1000000);
+      } else {
+        setUserSubscription(false);
+        setMaxWords(10000);
+      }
+    } else {
+      setUserSubscription(false);
+      setMaxWords(10000);
+    }
   };
 
   const GetTotalUsage = (result: HISTORY[]) => {
@@ -45,11 +88,13 @@ const UsageTrack = () => {
           <div
             className="h-2 bg-white rounded-full"
             style={{
-              width: (totalUsage / 10000) * 100 + "%",
+              width: (totalUsage / maxWords) * 100 + "%",
             }}
           ></div>
         </div>
-        <h2 className="text-sm my-2">{totalUsage}/10,000 Credit used</h2>
+        <h2 className="text-sm my-2">
+          {totalUsage}/{maxWords} Credit used
+        </h2>
       </div>
       <Button variant={"secondary"} className="w-full my-3 text-primary ">
         Upgrade

@@ -27,10 +27,13 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-tsparticles": "^2.12.2",
     "stripe": "^16.7.0",
     "svix": "^1.29.0",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tsparticles-engine": "^2.12.0",
+    "tsparticles-slim": "^2.12.0"
   },
   "devDependencies": {
     "@types/node": "^20",

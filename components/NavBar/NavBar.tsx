@@ -7,7 +7,7 @@ const NavBar = () => {
     <div className="w-[100%] sticky top-0 z-50  h-[8vh] bg-[#F5F6F7] ">
       <div className="flex justify-between items-center h-full px-4">
         <div className="flex items-center">
-          <Image src={"/logo.svg"} alt="logo" width={120} height={100} />
+          <Image src={"/newlogo.svg"} alt="logo" width={120} height={100} />
         </div>
         <div className="flex-grow flex justify-center space-x-10 items-center">
           <Link href="/" className="nav-link">

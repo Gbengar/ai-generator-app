@@ -1,0 +1,25 @@
+/* Apply styles specifically to the scrollbar in the chat area */
+.chat-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Adjust the width to make the scrollbar narrower */
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Make the track background transparent */
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4a5568; /* Custom color for the thumb */
+    border-radius: 4px; /* Round the corners of the scrollbar thumb */
+    border: 2px solid transparent; /* Add a border to create space between thumb and track */
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #2d3748; /* Darker color on hover for the thumb */
+  }
+  
+  /* Firefox Scrollbar */
+  .chat-scrollbar {
+    scrollbar-width: thin; /* Makes the scrollbar thinner */
+    scrollbar-color: #4a5568 transparent; /* Thumb and track colors */
+  }
+  

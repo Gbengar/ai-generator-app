@@ -71,6 +71,8 @@ const UsageTrack = () => {
     }
   };
 
+  // const IsUserLoggedIn = (result = {});
+
   const GetTotalUsage = (result: HISTORY[]) => {
     let total: number = 0;
     result.forEach((element) => {

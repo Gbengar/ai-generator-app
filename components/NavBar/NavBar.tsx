@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -24,14 +25,31 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="w-22  text-sm text-black  rounded font-bold">
-            Sign In
-          </button>
-          <button
-            className="group relative isolate inline-flex items-center justify-center overflow-hidden text-sm font-medium transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] before:transtion-opacity rounded-md px-3 py-[0.1875rem] shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 hover:before:opacity-100 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay ring-1 bg-gray-900 text-white ring-gray-900"
-            href="/"
-          >
-            Get started
+          <SignedIn>
+            <Link
+              href="/dashboard"
+              className="w-22 text-sm text-black rounded font-bold"
+            >
+              Dashboard
+            </Link>
+          </SignedIn>
+          <SignedOut>
+            <Link
+              href="/sign-in"
+              className="w-22 text-sm text-black rounded font-bold"
+            >
+              Sign In
+            </Link>
+          </SignedOut>
+
+          <button className="group relative isolate inline-flex items-center justify-center overflow-hidden text-sm font-medium transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] before:transtion-opacity rounded-md px-3 py-[0.1875rem] shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 hover:before:opacity-100 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay ring-1 bg-gray-900 text-white ring-gray-900">
+            <SignedIn>
+              <SignOutButton>Log Out</SignOutButton>
+            </SignedIn>
+            <SignedOut>
+              <Link href="/sign-up"> Get Started</Link>
+            </SignedOut>
+
             <svg
               viewBox="0 0 10 10"
               aria-hidden="true"

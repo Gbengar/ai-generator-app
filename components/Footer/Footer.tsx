@@ -6,10 +6,10 @@ import ScrollingBanner from "./_component/ScrollingBanner";
 const Footer = () => {
   return (
     <>
-      <div className="bg-white  border-t border-gray-200">
+      <div className="bg-white z-[10000] border-t border-gray-200">
         <ScrollingBanner />
 
-        <div className="max-w-7xl py-12 px-4  mx-auto">
+        <div className="max-w-7xl pt-12 pb-4 px-4  mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start">
             {/* Logo and social icons on the left */}
             <div className="mb-8 md:mb-0 md:w-1/4">
@@ -66,6 +66,13 @@ const Footer = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="w-[80%]  mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          <p className=" text-black"> Creatotum 2024 | All Rights Reserved</p>
+          <p className=" text-black">Terms Condition</p>
+
+          <p className=" text-black">Privacy Policy</p>
+          <p className=" text-black">Sitemap</p>
         </div>
       </div>
     </>

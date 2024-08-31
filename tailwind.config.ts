@@ -69,7 +69,7 @@ const config = {
         },
         scroll: {
           "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(-50%)" }, // Scroll only half of the content width
         },
       },
       animation: {
@@ -77,7 +77,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "spin-slow": "spin 3s linear infinite",
         "spin-slower": "spin 10s linear infinite",
-        scroll: "scroll 20s linear infinite", // Adjusted to create a continuous scrolling loop
+        scroll: "scroll 20s linear infinite", // Maintain continuous scroll animation
       },
     },
   },

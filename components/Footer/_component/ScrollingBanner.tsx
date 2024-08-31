@@ -9,14 +9,15 @@ const ScrollingBanner = () => {
   ];
 
   return (
-    <div className="overflow-hidden bg-gray-900 text-white py-2">
-      <div className="flex animate-scroll">
-        {[...Array(2)].map((_, index) => (
+    <div className="overflow-hidden bg-gray-900 text-white ">
+      <div className="flex animate-scroll min-w-max">
+        {/* Duplicate content to ensure continuous scrolling */}
+        {[...Array(4)].map((_, index) => (
           <div key={index} className="flex whitespace-nowrap">
             {content.map((item, itemIndex) => (
               <React.Fragment key={itemIndex}>
-                <span className="inline-block px-4">{item}</span>
-                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4 text-xs">{item}</span>
+                <span className="inline-block px-4 text-xs">•</span>
               </React.Fragment>
             ))}
           </div>

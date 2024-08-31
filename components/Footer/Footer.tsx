@@ -6,9 +6,10 @@ import ScrollingBanner from "./_component/ScrollingBanner";
 const Footer = () => {
   return (
     <>
-      <ScrollingBanner />
-      <footer className="bg-white py-12 px-4 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
+      <div className="bg-white  border-t border-gray-200">
+        <ScrollingBanner />
+
+        <div className="max-w-7xl py-12 px-4  mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start">
             {/* Logo and social icons on the left */}
             <div className="mb-8 md:mb-0 md:w-1/4">
@@ -66,7 +67,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </div>
     </>
   );
 };

@@ -4,8 +4,8 @@ import React from "react";
 
 const NavBar = () => {
   return (
-    <div className="w-[100%] sticky top-0 z-50  h-[8vh] bg-[#F5F6F7] ">
-      <div className="flex justify-between items-center h-full px-4">
+    <div className="w-[100%] fixed z-[10000] top-0 h-[8vh] bg-[#F5F6F7] ">
+      <div className="flex justify-between items-centers h-full px-4">
         <div className="flex items-center">
           <Image src={"/newlogo.svg"} alt="logo" width={120} height={100} />
         </div>

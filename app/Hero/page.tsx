@@ -1,10 +1,11 @@
-"use client"; // This directive marks the component as a Client Component
+"use client";
 
 import Particle from "@/components/Particules/Particule";
 import React, { useState } from "react";
 import ChatArea from "../chat/component/Chatarea";
 import { Mails } from "lucide-react";
 import Image from "next/image";
+import TextEffect from "../chat/component/TextEffect";
 
 const Hero: React.FC = () => {
   // Use state to manage the open state of the chat
@@ -18,26 +19,15 @@ const Hero: React.FC = () => {
 
   const handleResume = async () => {
     toggleChat();
-    // const response = await fetch('/api/files');
-
-    // if (response.status !== 200) {
-    //   console.error(response.status, response.statusText);
-    // }
-
-    // const blob = await response.blob();
-    // const url = window.URL.createObjectURL(blob);
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.download = 'Vinit_Gupta_Resume.pdf';
-    // link.click();
+    // Your logic to handle resume or other actions
   };
 
   return (
-    <div className="h-[90vh] bg-[grey] relative">
+    <div className="h-[100vh] bg-[grey] relative">
       <Particle />
-      <div className="flex flex-col items-center justify-center h-full ">
+      <div className="flex flex-col items-center justify-center h-full">
         <h1 className="text-black text-6xl font-bold text-center">
-          AI Content <span className="text-red-700">Generation</span>
+          <TextEffect />
         </h1>
         <p className="text-white mt-4 text-center text-2xl max-w-4xl">
           Elevate your content creation to the next level with our cutting-edge
@@ -87,13 +77,25 @@ const Hero: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Image to toggle ChatArea */}
       <div
         onClick={handleResume}
-        className={`absolute w-1 md:w-24 aspect-square object-contain bottom-0 right-10 bg-transparent cursor-pointer text-white hover:scale-110 `}
+        className={`absolute w-1 md:w-24 aspect-square object-contain bottom-6 right-10 bg-transparent cursor-pointer text-white hover:scale-110 ${
+          isOpen ? "animate-bounce" : ""
+        }`}
       >
         <Image alt="chat" src={"/chat.svg"} width={50} height={50} />
       </div>
-      {isOpen && <ChatArea toggleChat={toggleChat} />}
+
+      {/* ChatArea without downward transition */}
+      <div
+        className={`fixed bottom-10 right-10 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {isOpen && <ChatArea toggleChat={toggleChat} />}
+      </div>
     </div>
   );
 };

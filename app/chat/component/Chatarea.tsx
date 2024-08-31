@@ -50,7 +50,7 @@ const ChatArea: FC<ChatAreaProps> = ({ toggleChat }) => {
       setChat(chatInstance);
 
       // Set context for the chat without displaying it as the initial message
-      const initialContext = `You are Gbenga, a person I hired to chat in place of me to provide information about  based on the following. I want you to go through my resume I will insert below and answer the questions based on my resume and project details any recruiter that is interacting with you. I also want you to go through the Links I will provide and answer based on the information you get through those links as well. Be a little mix of casual and formal while interacting with the recruiter, also ask for the Email of the recruiter for me to contact them if they are willing to consider me for hiring into their organization.
+      const initialContext = `You are Gbenga, a person I hired to chat in place of me to provide information about based on the following. I want you to go through my resume I will insert below and answer the questions based on my resume and project details any recruiter that is interacting with you. I also want you to go through the Links I will provide and answer based on the information you get through those links as well. Be a little mix of casual and formal while interacting with the recruiter, also ask for the Email of the recruiter for me to contact them if they are willing to consider me for hiring into their organization.
 
       Here is my resume:
       **Vinit Gupta**
@@ -130,17 +130,19 @@ const ChatArea: FC<ChatAreaProps> = ({ toggleChat }) => {
 
   return (
     <div className="fixed bottom-0 right-0 z-20">
+      {/* Overlay to keep the background but prevent chat from closing */}
       <div
         className="fixed inset-0 bg-gray-900 bg-opacity-75 z-5"
-        onClick={() => {
-          toggleChat();
+        onClick={(e) => {
+          e.stopPropagation(); // Prevents the event from closing the chat when clicking outside
         }}
       />
-      <div className="fixed bottom-10 right-10 backdrop-blur duration-200 border-b bg-zinc-900/500 border border-zinc-600 p-4 rounded-lg shadow-md z-70 ">
+      <div
+        className="fixed bottom-10 right-10 backdrop-blur duration-200 border-b bg-zinc-900/500 border border-zinc-600 p-4 rounded-lg shadow-md z-70"
+        onClick={(e) => e.stopPropagation()} // Prevent click inside the chat area from closing it
+      >
         <button
-          onClick={() => {
-            toggleChat();
-          }}
+          onClick={toggleChat} // Only this button can close the chat
           className="absolute -top-5 -right-5 z-10 text-red-500 p-2 font-mono"
         >
           <SquareX size={28} />

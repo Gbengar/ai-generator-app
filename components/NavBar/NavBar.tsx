@@ -1,26 +1,66 @@
+"use client";
 import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-const NavBar = () => {
+interface Props {
+  openNav: () => void;
+  isActive: (path: string) => boolean;
+}
+
+const NavBar: React.FC<Props> = ({ openNav }) => {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
+
   return (
-    <div className="w-[100%] fixed z-[10000] top-0 h-[8vh] bg-[#F5F6F7] ">
-      <div className="flex justify-between items-centers h-full px-4">
+    <div className="w-full fixed z-[10000] top-0 h-[8vh] bg-[#F5F6F7]">
+      <div className="flex justify-between items-center h-full px-4">
         <div className="flex items-center">
           <Image src={"/newlogo.svg"} alt="logo" width={120} height={100} />
         </div>
         <div className="flex-grow flex justify-center space-x-10 items-center">
-          <Link href="/" className="nav-link">
+          <Link
+            href="/"
+            className={`nav-link ${
+              isActive("/") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/about"
+            className={`nav-link ${
+              isActive("/about") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
             About
           </Link>
-          <Link href="/" className="nav-link">
+          <Link
+            href="/company"
+            className={`nav-link ${
+              isActive("/company") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
             Company
           </Link>
-          <Link href="/" className="nav-link">
+          <Link
+            href="/blog"
+            className={`nav-link ${
+              isActive("/blog") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
             Blog
           </Link>
-          <Link href="/" className="nav-link">
+          <Link
+            href="/career"
+            className={`nav-link ${
+              isActive("/career") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
             Career
           </Link>
         </div>
@@ -28,7 +68,9 @@ const NavBar = () => {
           <SignedIn>
             <Link
               href="/dashboard"
-              className="w-22 text-sm text-black rounded font-bold"
+              className={`w-22 text-sm text-black rounded font-bold ${
+                isActive("/dashboard") ? "border-b-2 border-blue-500" : ""
+              }`}
             >
               Dashboard
             </Link>
@@ -79,6 +121,11 @@ const NavBar = () => {
               ></path>
             </svg>
           </button>
+
+          {/* Move the Menu icon inside this flex container */}
+          <div onClick={openNav} className="flex items-center md:hidden">
+            <Menu className="w-8 h-8 cursor-pointer text-red-300" />
+          </div>
         </div>
       </div>
     </div>

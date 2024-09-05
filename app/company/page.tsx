@@ -1,13 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import NavBar from "@/components/NavBar/NavBar";
-import Hero from "./Hero/page";
-import Particle from "@/components/Particules/Particule";
 import Footer from "@/components/Footer/Footer";
+import NavBar from "@/components/NavBar/NavBar";
+import React, { useState } from "react";
 import MobileNav from "@/components/NavBar/MobileNav";
+import { usePathname } from "next/navigation";
+import Company from "./_component/Company";
 
-export default function Home() {
+const page = () => {
   const [nav, setNav] = useState(false);
   const pathname = usePathname();
 
@@ -15,17 +14,18 @@ export default function Home() {
   const closeNav = () => setNav(false);
 
   const isActive = (path: string) => pathname === path;
-
   return (
     <div className="overflow-x-hidden">
       <div>
         <MobileNav nav={nav} closeNav={closeNav} isActive={isActive} />
         <NavBar openNav={openNav} isActive={isActive} />
-        <div className="mt-0">
-          <Hero />
+        <div className="mt-10">
+          <Company />
         </div>
         <Footer />
       </div>
     </div>
   );
-}
+};
+
+export default page;

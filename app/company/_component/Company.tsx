@@ -1,6 +1,7 @@
-import { Video } from "lucide-react";
+import { PhoneCall, Video } from "lucide-react";
 import React from "react";
 import TeamScroll from "./TeamScroll";
+import Contact from "./Contact";
 
 const Company = () => {
   return (
@@ -42,9 +43,12 @@ const Company = () => {
           </button>
         </div>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 opacity-50" />
-      <div className="py-10">
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 opacity-50" /> */}
+      <div className="py-10 px-5">
         <TeamScroll />
+      </div>
+      <div>
+        <Contact />
       </div>
     </section>
   );

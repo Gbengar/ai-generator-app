@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import "animate.css";
+import { Toaster } from "react-hot-toast";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -19,6 +20,19 @@ export default function RootLayout({
   return (
     <ClerkProvider signInFallbackRedirectUrl="/dashboard">
       <html lang="en">
+        <Toaster
+          position="top-center" // Top-center but you can offset the position a bit
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+          }}
+        />
+
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>

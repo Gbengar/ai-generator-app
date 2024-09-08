@@ -17,7 +17,7 @@ const NavBar: React.FC<Props> = ({ openNav }) => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <div className="w-full fixed z-[10000] top-0 h-[8vh] bg-[#F5F6F7]">
+    <div className="w-full fixed z-[100] top-0 h-[8vh] bg-[#F5F6F7]">
       <div className="flex justify-between items-center h-full px-4">
         <div className="flex items-center">
           <Image src={"/newlogo.svg"} alt="logo" width={120} height={100} />
@@ -48,20 +48,20 @@ const NavBar: React.FC<Props> = ({ openNav }) => {
             Company
           </Link>
           <Link
-            href="/blog"
-            className={`nav-link ${
-              isActive("/blog") ? "border-b-2 border-blue-500" : ""
-            }`}
-          >
-            Blog
-          </Link>
-          <Link
             href="/career"
             className={`nav-link ${
               isActive("/career") ? "border-b-2 border-blue-500" : ""
             }`}
           >
             Career
+          </Link>
+          <Link
+            href="/blog"
+            className={`nav-link ${
+              isActive("/blog") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
+            Blog
           </Link>
         </div>
         <div className="flex items-center space-x-4">

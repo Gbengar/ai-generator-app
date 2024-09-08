@@ -2,10 +2,10 @@
 
 import Particle from "@/components/Particules/Particule";
 import React, { useState } from "react";
-import ChatArea from "../chat/component/Chatarea";
+import ChatArea from "./component/Chatarea";
 import { Mails } from "lucide-react";
 import Image from "next/image";
-import TextEffect from "../chat/component/TextEffect";
+import TextEffect from "./component/TextEffect";
 import { SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 

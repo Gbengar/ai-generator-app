@@ -43,15 +43,6 @@ const MobileNav = ({ nav, closeNav, isActive }: Props) => {
           Company
         </Link>
         <Link
-          href="/blog"
-          className={`nav-link-mobile cursor-pointer ${
-            isActive("/blog") ? "text-blue-500" : ""
-          }`}
-          onClick={closeNav}
-        >
-          Blog
-        </Link>
-        <Link
           href="/career"
           className={`nav-link-mobile cursor-pointer ${
             isActive("/career") ? "text-blue-500" : ""
@@ -59,6 +50,15 @@ const MobileNav = ({ nav, closeNav, isActive }: Props) => {
           onClick={closeNav}
         >
           Career
+        </Link>
+        <Link
+          href="/blog"
+          className={`nav-link-mobile cursor-pointer ${
+            isActive("/blog") ? "text-blue-500" : ""
+          }`}
+          onClick={closeNav}
+        >
+          Blog
         </Link>
       </div>
       <div

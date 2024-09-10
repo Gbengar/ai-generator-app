@@ -1,3 +1,5 @@
+// blog/page.tsx
+
 "use client";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
@@ -6,7 +8,7 @@ import MobileNav from "@/components/NavBar/MobileNav";
 import { usePathname } from "next/navigation";
 import Blog from "./_components/Blog";
 
-const page = () => {
+const Page = () => {
   const [nav, setNav] = useState(false);
   const pathname = usePathname();
 
@@ -14,6 +16,7 @@ const page = () => {
   const closeNav = () => setNav(false);
 
   const isActive = (path: string) => pathname === path;
+
   return (
     <div className="overflow-x-hidden">
       <div>
@@ -28,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

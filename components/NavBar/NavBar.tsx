@@ -48,20 +48,20 @@ const NavBar: React.FC<Props> = ({ openNav }) => {
             Company
           </Link>
           <Link
-            href="/career"
-            className={`nav-link ${
-              isActive("/career") ? "border-b-2 border-blue-500" : ""
-            }`}
-          >
-            Career
-          </Link>
-          <Link
             href="/blog"
             className={`nav-link ${
               isActive("/blog") ? "border-b-2 border-blue-500" : ""
             }`}
           >
             Blog
+          </Link>
+          <Link
+            href="/career"
+            className={`nav-link ${
+              isActive("/career") ? "border-b-2 border-blue-500" : ""
+            }`}
+          >
+            Career
           </Link>
         </div>
         <div className="flex items-center space-x-4">
